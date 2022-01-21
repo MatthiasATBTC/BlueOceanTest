@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Build'
-        sh 'helloWorld.sh'
+        sh '/TestJenkins/helloWorld.sh'
       }
     }
 
