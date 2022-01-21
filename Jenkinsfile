@@ -4,7 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Build'
-        sh 'TestJenkins/helloWorld.sh'
+        sleep 15
+        echo 'slept'
       }
     }
 
