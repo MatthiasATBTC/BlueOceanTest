@@ -1,0 +1,46 @@
+SAPSYSTEMNAME = MIG
+SAPSYSTEM = 00
+INSTANCE_NAME = D00
+DIR_CT_RUN = $(DIR_EXE_ROOT)$(DIR_SEP)$(OS_UNICODE)$(DIR_SEP)linuxx86_64
+DIR_EXECUTABLE = $(DIR_INSTANCE)/exe
+SAPLOCALHOST = mig
+DIR_PROFILE = $(DIR_INSTALL)$(DIR_SEP)profile
+_PF = $(DIR_PROFILE)/MIG_D00_mig
+SETENV_00 = DIR_LIBRARY=$(DIR_LIBRARY)
+SETENV_01 = LD_LIBRARY_PATH=$(DIR_LIBRARY):%(LD_LIBRARY_PATH)
+SETENV_02 = SHLIB_PATH=$(DIR_LIBRARY):%(SHLIB_PATH)
+SETENV_03 = LIBPATH=$(DIR_LIBRARY):%(LIBPATH)
+SETENV_04 = PATH=$(DIR_EXECUTABLE):%(PATH)
+#-----------------------------------------------------------------------
+# Copy SAP Executables
+#-----------------------------------------------------------------------
+Execute_00 = immediate $(DIR_CT_RUN)/sapcpe$(FT_EXE) pf=$(_PF)
+Execute_01 = immediate $(DIR_CT_RUN)/sapcpe$(FT_EXE) pf=$(_PF)
+_CPARG0 = list:$(DIR_CT_RUN)/sapcrypto.lst
+Execute_02 = immediate $(DIR_CT_RUN)/sapcpe$(FT_EXE) pf=$(_PF) $(_CPARG0)
+exe/saposcol = $(DIR_CT_RUN)/saposcol
+rdisp/wp_no_dia = 10
+rdisp/wp_no_btc = 6
+rdisp/wp_no_vb = 1
+rdisp/wp_no_vb2 = 1
+rdisp/wp_no_spo = 1
+exe/icmbnd = $(DIR_CT_RUN)/icmbnd
+#-----------------------------------------------------------------------
+# Start SCSA administration
+#-----------------------------------------------------------------------
+Execute_03 = local $(DIR_EXECUTABLE)/sapmscsa pf=$(_PF) -n
+#-----------------------------------------------------------------------
+# Start application server
+#-----------------------------------------------------------------------
+_DW = dw.sap$(SAPSYSTEMNAME)_$(INSTANCE_NAME)
+Execute_04 = local rm -f $(_DW)
+Execute_05 = local ln -s -f $(DIR_EXECUTABLE)/disp+work$(FT_EXE) $(_DW)
+Start_Program_00 = local $(_DW) pf=$(_PF)
+#-----------------------------------------------------------------------
+# Start internet graphics server
+#-----------------------------------------------------------------------
+_IG = ig.sap$(SAPSYSTEMNAME)_$(INSTANCE_NAME)
+Execute_06 = local rm -f $(_IG)
+Execute_07 = local ln -s -f $(DIR_EXECUTABLE)/igswd_mt $(_IG)
+Start_Program_01 = local $(_IG) -mode=profile pf=$(_PF)
+SETENV_05 = SECUDIR=$(DIR_INSTANCE)/sec

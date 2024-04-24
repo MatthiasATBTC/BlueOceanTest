@@ -1,9 +1,9 @@
 SAPSYSTEMNAME = MIG
 SAPSYSTEM = 01
-SAPLOCALHOST = mig
 INSTANCE_NAME = ASCS01
 DIR_CT_RUN = $(DIR_EXE_ROOT)$(DIR_SEP)$(OS_UNICODE)$(DIR_SEP)linuxx86_64
 DIR_EXECUTABLE = $(DIR_INSTANCE)/exe
+SAPLOCALHOST = mig
 DIR_PROFILE = $(DIR_INSTALL)$(DIR_SEP)profile
 _PF = $(DIR_PROFILE)/MIG_ASCS01_mig
 SETENV_00 = DIR_LIBRARY=$(DIR_LIBRARY)
@@ -35,13 +35,5 @@ Restart_Program_01 = local $(_ENQ) pf=$(_PF)
 #-----------------------------------------------------------------------
 # SAP Message Server parameters are set in the DEFAULT.PFL
 #-----------------------------------------------------------------------
-ms/standalone = 1
 ms/server_port_0 = PROT=HTTP,PORT=81$$
 SETENV_05 = SECUDIR=$(DIR_INSTANCE)/sec
-#-----------------------------------------------------------------------
-# Start gateway
-#-----------------------------------------------------------------------
-_GW = gw.sap$(SAPSYSTEMNAME)_$(INSTANCE_NAME)
-Execute_06 = local rm -f $(_GW)
-Execute_07 = local ln -s -f $(DIR_EXECUTABLE)/gwrd$(FT_EXE) $(_GW)
-Restart_Program_02 = local $(_GW) pf=$(_PF) -abap

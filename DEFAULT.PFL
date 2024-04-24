@@ -1,13 +1,40 @@
-SAPDBHOST = migdmig01l00e
-dbms/type = hdb
-dbms/name = MIG
-dbs/hdb/dbname = MIG
+#.******************************************************************************************************************************
+#.*                                                                                                                            *
+#.*       Defaultprofil DEFAULT                                                                                                *
+#.*                                                                                                                            *
+#.*       Version                 = 000001                                                                                     *
+#.*       Generiert von Benutzer  = BRUESEKE                                                                                   *
+#.*       Datum der Generierung   = 19.03.2024 , 12:10:51                                                                      *
+#.*                                                                                                                            *
+#.******************************************************************************************************************************
+#parameter created                          by: BRUESEKE     29.02.2024 12:42:55
+snc/force_login_screen = 0
+#parameter created                          by: BRUESEKE     29.02.2024 12:42:37
+snc/permit_insecure_start = 1
+#parameter created                          by: BRUESEKE     29.02.2024 12:42:15
+snc/accept_insecure_rfc = 1
+#parameter created                          by: BRUESEKE     29.02.2024 12:41:50
+snc/accept_insecure_gui = 1
+#parameter created                          by: BRUESEKE     29.02.2024 12:41:33
+snc/accept_insecure_cpic = 1
+#parameter created                          by: BRUESEKE     29.02.2024 12:41:15
+snc/r3int_rfc_secure = 0
+#parameter created                          by: BRUESEKE     29.02.2024 12:40:46
+snc/data_protection/use = 3
+#parameter created                          by: BRUESEKE     29.02.2024 12:40:25
+snc/data_protection/min = 3
+#parameter created                          by: BRUESEKE     29.02.2024 12:40:06
+snc/data_protection/max = 3
+#parameter created                          by: BRUESEKE     29.02.2024 12:39:30
+snc/identity/as = p:CN=MIG, O=Westlotto, C=DE
+#parameter created                          by: BRUESEKE     29.02.2024 12:38:59
+snc/gssapi_lib = /usr/sap/MIG/SYS/exe/run/libsapcrypto.so
+#parameter created                          by: BRUESEKE     29.02.2024 12:38:17
+snc/enable = 0
 SAPSYSTEMNAME = MIG
 SAPGLOBALHOST = mig
-system/type = ABAP
 SAPFQDN = sap.westlotto.de
 SAPLOCALHOSTFULL = $(SAPLOCALHOST).$(SAPFQDN)
-rsdb/ssfs_connect = 0
 system/secure_communication = ON
 rdisp/mshost = mig
 rdisp/msserv = sapmsMIG
@@ -21,31 +48,20 @@ icm/HTTP/ASJava/disable_url_session_tracking = TRUE
 service/protectedwebmethods = SDEFAULT
 rsec/ssfs_datapath = $(DIR_GLOBAL)$(DIR_SEP)security$(DIR_SEP)rsecssfs$(DIR_SEP)data
 rsec/ssfs_keypath = $(DIR_GLOBAL)$(DIR_SEP)security$(DIR_SEP)rsecssfs$(DIR_SEP)key
-gw/acl_mode = 1
 gw/sec_info = $(DIR_GLOBAL)$(DIR_SEP)secinfo$(FT_DAT)
+login/system_client = 100
+system/type = ABAP
+SAPDBHOST = migdmig01l00e
+dbms/type = hdb
+dbms/name = MIG
+dbs/hdb/dbname = MIG
+rsdb/ssfs_connect = 0
+dbs/hdb/schema = SAPHANADB
+dbs/hdb/connect_property = ENCRYPT=TRUE,sslValidateCertificate=FALSE
+gw/acl_mode = 1
 login/password_downwards_compatibility = 0
 vmcj/enable = off
-login/system_client = 000
-dbs/hdb/schema = SAPHANADB
-# TIMESTAMP: 20230517000000, BY: Software Provisioning Manager 
-auth/check/calltransaction = 3
-auth/object_disabling_active = N
-auth/rfc_authority_check = 6
-gw/acl_mode_proxy = 1
-gw/reg_no_conn_info = 255
-gw/rem_start = DISABLED
-icf/reject_expired_passwd = 1
-icf/set_HTTPonly_flag_on_cookies = 0
-login/disable_cpic = 1
-login/password_hash_algorithm = encoding=RFC2307, algorithm=iSSHA-512, iterations=15000, saltsize=256
-#login/password_compliance_to_current_policy = 1
-#login/password_max_idle_initial = 7
-#login/password_max_idle_productive = 180
-login/show_detailed_errors = 0
-login/ticket_only_by_https = 1
-rec/client = ALL
-rfc/allowoldticket4tt = no
-rfc/callback_security_method = 3
-#rfc/reject_expired_passwd = 1
-ssl/ciphersuites = 545:PFS:HIGH::EC_X25519:EC_P256:EC_HIGH
-# After system provisioning, see SAP Note 2714839 and enable all security settings.
+FN_AUDIT = ++++++++######.AUD
+#20240227 added after system copy
+login/no_automatic_user_sapstar = 1
+rdisp/scheduler/prio_high/max_runtime = 18000
